@@ -1,0 +1,50 @@
+<html>  
+<head>
+    <title>EECS 448 Lab05 Exercise 6</title>
+    <meta content="">
+    <style></style>
+  </head>
+  <body>
+
+
+<?php
+
+$mysqli = new mysqli("mysql.eecs.ku.edu", "f096t004", "Uthee3fu", "f096t004");
+
+if ($mysqli->connect_errno)
+{
+    printf("Connect failed: %s\n", $mysqli->connect_error);
+    exit();
+}
+
+$query = "SELECT user_id FROM Users ORDER BY user_id ASC";
+
+if ($result = $mysqli->query($query))
+{
+
+	echo "<form action ='ViewUserPosts.php' method = 'POST'>";
+	echo "<select name = 'usernames'>";
+
+	while ($row = $result->fetch_assoc())
+	{
+		$username = $row["user_id"];
+		echo "<option value = '";
+		echo $username;
+		echo "'>";
+		echo $username;
+		echo "</option>";	
+    	}
+
+	echo "</select>";
+
+	echo "<input type='submit' value='Submit'>";
+	echo "</form>";
+
+    	$result->free();
+}
+
+$mysqli->close();
+
+?>
+</body>
+<html>
